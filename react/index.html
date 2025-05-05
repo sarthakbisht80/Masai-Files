@@ -1,0 +1,55 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    
+    </head>
+    <body>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-axios@2.0.6/lib/index.min.js"></script> 
+    <div id="root">
+
+    </div>
+
+    <script type="text/babel">
+        const {useState}= React;
+        
+
+        function App(){
+            const [data, setData]=useState([])//initial value
+            async function  fecthData() {
+               
+               try{
+                   const res= await axios.get('https://fakestoreapi.com/products');
+                    console.log(res.data);
+            } catch(error){
+                    console.log(error);
+                }
+                
+            }
+          fecthData();
+            
+            return (
+                <>
+                <h1> Helow from react </h1>
+                <button onClick={fecthData}> Fetch Data</button>
+               <ul>
+                {data.map((item,index)=>(
+                    <li key ={index}>{item.title}</li>
+                ))}
+                </ul>
+                </>
+            );
+        }
+
+        
+        
+        let root= ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App/>);
+    </script>
+    </body>
+    </html>
